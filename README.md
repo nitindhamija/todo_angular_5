@@ -1,8 +1,9 @@
 # Angular Todo App
+This repo along with another repo (https://github.com/nitindhamija/todo_backend.git) contains the code for a todo angular 5 application 
+this repo contains the front end part(angular) for the todo application.
+todo front end: angular 5,html,css
+todo back end :spring boot,h2 database
 
-This repo is extended from another repo  [building an Angular CRUD app from the ground up](https://www.sitepoint.com/series/build-an-angular-crud-app-from-the-ground-up/).
- +basically this repo contains the front end part(angular) for the todo application this repo along with another repo
- contains the code for the whole todo application.
  
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
