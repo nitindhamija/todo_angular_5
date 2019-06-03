@@ -1,86 +1,79 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Http ,Headers,RequestOptions,URLSearchParams,Response }       from '@angular/http';
+import { HttpClient,HttpHeaders,HttpParams} from '@angular/common/http';
 import { Todo } from './todo';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { map, catchError } from 'rxjs/operators';
+
+
 
 const API_URL = environment.apiUrl;
-const headers = new Headers({ 'Content-Type': 'application/json' });
+const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 @Injectable()
 export class ApiService {
 
   constructor(
-    private http: Http
+    private http: HttpClient
   ) {
   }
 
   public getAllTodos(): Observable<Todo[]> {
     return this.http
-      .get(API_URL + '/todos')
-      .map(response => {
-        const todos = response.json();
-        return todos.map((todo) => new Todo(todo));
-      })
-      .catch(this.handleError);
+      .get<Todo[]>(API_URL + '/todos');
   }
 
   public createTodo(todo: any): Observable<Todo> {
    
 
     return this.http
-      .post(API_URL + '/todos', todo)
-      .map(response => {
-        return new Todo(response.json());
-      })
-      .catch(this.handleError);
+      .post<Todo>(API_URL + '/todos', todo);
+      //.catch(this.handleError);
   }
 
   public getTodoById(todoId: number): Observable<Todo> {
     return this.http
-      .get(API_URL + '/todos/' + todoId)
-      .map(response => {
-        return new Todo(response.json());
-      })
-      .catch(this.handleError);
+      .get<Todo>(API_URL + '/todos/' + todoId);
   }
 
   public updateTodo(todo: any): Observable<Todo> {
    
     return this.http
-      .put(API_URL + '/todos' , todo)
-      .map(response => {
-        return new Todo(response.json());
-      })
-      .catch(this.handleError);
+      .put<Todo>(API_URL + '/todos' , todo);
   }
-  public updateTodoAll(checkAll: any): Observable<null> {
-    let options = new RequestOptions({ headers: headers });
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('checkAll', checkAll);
-    options.params = params;
+  public updateTodoAll(checkAll: any): Observable<any> {
+  //  let options = new RequestOptions({ headers: headers });
+    let params: HttpParams = new HttpParams();
+    params=params.set('checkAll', checkAll);
+    //options.params = params;
     return this.http
-      .put(API_URL + '/todosall' ,null, options)
-      .map(response => null)
-      .catch(this.handleError);
+      .put<Todo>(API_URL + '/todosall' ,null, {
+        headers:headers,
+        params: params
+      });
+      //.catch(this.handleError);
   }
 
-  public deleteTodoById(todoId:any): Observable<null> {
+  public deleteTodoById(todoId:any): Observable<any> {
   
-        let options = new RequestOptions({ headers: headers });
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('id', todoId);
-        options.params = params;
+  //      let options = new RequestOptions({ headers: headers });
+        let params =  new HttpParams();
+        params= params.append('id', todoId);
+       // options.params = params;
+       
     return this.http
-      .delete(API_URL + '/todos' , options)
-      .map(response => null)
-      .catch(this.handleError);
+      .delete(API_URL + '/todos' , {
+        headers:headers,
+        params: params
+       
+      }
+    );
+    
   }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
-    return Observable.throw(error);
+    return observableThrowError(error);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './todo';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable,of } from 'rxjs';
+
 
 @Injectable()
 export class ApiMockService {
@@ -11,25 +11,25 @@ export class ApiMockService {
   }
 
   public getAllTodos(): Observable<Todo[]> {
-    return Observable.of([
+    return of([
       new Todo({id: 1, name: 'Read article', completed: false})
     ]);
   }
 
   public createTodo(todo: Todo): Observable<Todo> {
-    return Observable.of(
+    return of(
       new Todo({id: 1, name: 'Read article', completed: false})
     );
   }
 
   public getTodoById(todoId: number): Observable<Todo> {
-    return Observable.of(
+    return of(
       new Todo({id: 1, name: 'Read article', completed: false})
-    );
+    ); 
   }
 
   public updateTodo(todo: Todo): Observable<Todo> {
-    return Observable.of(
+    return of(
       new Todo({id: 1, name: 'Read article', completed: false})
     );
   }
