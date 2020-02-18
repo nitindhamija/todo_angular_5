@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Todo } from './todo';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-
+import { HttpResponse} from '@angular/common/http';
 @Injectable()
 export class TodoDataService {
 
@@ -27,7 +27,7 @@ export class TodoDataService {
   }
 
   // Simulate GET /todos
-  getAllTodos(): Observable<Todo[]> {
+  getAllTodos(): Observable<HttpResponse<Todo[]>> {
     return this.api.getAllTodos();
   }
 

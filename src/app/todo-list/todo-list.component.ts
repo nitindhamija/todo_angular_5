@@ -5,7 +5,7 @@ import { Todo } from '../todo';
   {
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.css']
+    styleUrls: ['./todo-list.component.css'],
   }
 )
 export class TodoListComponent {

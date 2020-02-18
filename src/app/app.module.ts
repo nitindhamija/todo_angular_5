@@ -1,6 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser/';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 //import { HttpModule } from '@angular/http';
 import {jwtInterceptor} from './authentication/jwt-interceptor';
 import { AppComponent } from './app.component';
@@ -11,7 +12,10 @@ import { TodoDataService } from './todo-data.service';
 import { TodoListItemComponent } from './todo-list-item/todo-list-item.component';
 import { ApiService } from './api.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './login/login/login.component';
+import { LoginComponent } from './login/login.component';
+import {RoutingModule} from './routing/routing.module';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,18 @@ import { LoginComponent } from './login/login/login.component';
     TodoListFooterComponent,
     TodoListHeaderComponent,
     TodoListItemComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule,
+   // BrowserModule,
+   BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
    // HttpModule,
+   RouterModule,
+   RoutingModule,
+   
    HttpClientModule
   ],
   providers: [TodoDataService, ApiService,
